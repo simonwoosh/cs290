@@ -1,7 +1,4 @@
 <?php #user class
-
-require_once 'includes/config.php';
-
 class user {
 	
 	private $id;
@@ -31,6 +28,7 @@ class user {
 		$this->first_name = $userInfo[0][3];
 		$this->last_name = $userInfo[0][4];
 		$this->email = $userInfo[0][5];
+		$this->date_added = $userInfo[0][6];
 
 
 
@@ -53,6 +51,9 @@ class user {
 	}
 	public function getEmail() {
 		return $this->email;
+	}
+	public function getDate_added() {
+		return $this->date_added;
 	}
 
 }

@@ -13,4 +13,5 @@ $errors = array();
 
 //universals
 $company_name = "Our Service";
+session_start();
 ?>

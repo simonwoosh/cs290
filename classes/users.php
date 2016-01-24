@@ -146,7 +146,6 @@ class users {
 
     //Checking to see if session variable is hot
     public static function loggedIn() {
-    	
     	if(isset($_SESSION['id'])) {
     		return true;
     	}

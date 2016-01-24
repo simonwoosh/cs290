@@ -2,7 +2,7 @@
 <h1><?php echo $title; ?></h1>
 <hr />
 
-<form class="cmxform" id="signupForm" method="post" action="">
+<form class="cmxform" id="registerform" method="post" action="">
     <fieldset class="form-group">
       <p>
         <label for="firstname">Firstname</label>
@@ -42,7 +42,7 @@
   <script>
   $().ready(function() {
        // validate signup form on keyup and submit
-    $("#signupForm").validate({
+    $("#registerform").validate({
       rules: {
         firstname: "required",
         lastname: "required",
