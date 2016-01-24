@@ -2,6 +2,10 @@
 include 'config.php';
 $title="Home";
 include 'templates/header.phtml';
-include 'templates/home.phtml';
+if(users::loggedIn()) { 
+include 'templates/main.phtml';
+}else {
+	include 'templates/home.phtml';
+}
 include 'templates/footer.phtml';
 ?>			
