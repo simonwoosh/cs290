@@ -1,7 +1,6 @@
 <?php #register Action
 //Checking submission
 if(isset($_POST['submit'])) {
-	echo "connecting_submit";
 	//Validation
 		//Check user's existence 
 		if (users::userExists($_POST['username']) === true) {

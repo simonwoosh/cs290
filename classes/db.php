@@ -8,7 +8,7 @@ class db {
 			return self :: $link ;
 		}
 
-		$ini = "../config.ini.php" ;
+		$ini = "config.ini.php" ;
 		$parse = parse_ini_file ( $ini , true ) ;
 
 		//get info from config.ini.php
