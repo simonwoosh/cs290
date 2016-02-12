@@ -1,0 +1,35 @@
+<div class="container " role="main">
+<h1><?php echo $title; ?></h1>
+<hr />
+
+<form class="cmxform" id="loginform" method="post" action="">
+    <fieldset class="form-group">
+      <p>
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" class="form-control">
+      </p>
+      <p>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" class="form-control">
+      </p>
+      
+      <p>
+        <button type="submit" value="login" name="login" id="login" class="btn btn-primary">Submit</button>
+      </p>
+    </fieldset>
+  </form>
+  <script>
+  $().ready(function() {
+       // validate signup form on keyup and submit
+    $("#loginform").validate({
+      rules: {
+        username: {
+          required: true
+        },
+        password: {
+          required: true
+        });
+
+  });
+  </script>
+</div> <!-- /container -->
