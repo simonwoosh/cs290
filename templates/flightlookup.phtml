@@ -1,8 +1,8 @@
-<html lang="en">
+
 <div class="container " role="main">
 <h1><?php echo $title; ?></h1>
 <hr />
-<head>
+
   
   <meta charset="utf-8">
   
@@ -26,30 +26,56 @@
     });
 </script>
 
-</head>
+
+<div class="row">
+  
+  
 <form class="cmxform" id="flightform" method="post" action="">
-    <fieldset class="form-group">
+   <div class="col-md-6">
+      <div class="panel panel-default">
+      <div class="panel-heading">
+      <h3 class="panel-title">Where do you want to go?</h3>
+      </div>
+      <div class="panel-body">
+      <fieldset class="form-group">
+        
+        <p>
+          <label for="fromflight">From Airport:</label>
+          <input id="fromflight" name="from_flight" type="text" class="form-control">
+
+        </p>
+        <p>
+          <label for="toflight">To Airport:</label>
+          <input id="toflight" name="to_flight" type="text" class="form-control">
+
+        </p>
+        </fieldset>
+      </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+     <div class="panel panel-default">
+      <div class="panel-heading">
+      <h3 class="panel-title">When do you want to go?</h3>
+      </div>
+      <div class="panel-body">
+      <fieldset class="form-group">
+
       <p>
-        <label for="fromflight">From Airport:</label>
-        <input id="fromflight" name="from_flight" type="text" class="form-control">
+      <label for="departdate">Departure Date:</label>
+      <input id="datepicker" name="departdate" type="text" class="form-control">
 
       </p>
-      <p>
-        <label for="toflight">To Airport:</label>
-        <input id="toflight" name="to_flight" type="text" class="form-control">
-
-      </p>
-      <p>
-        <label for="departdate">Departure Date:</label>
-        <input id="datepicker" name="departdate" type="text" class="form-control">
-
-      </p>
 
       <p>
-        <label for="departtime">Departure Time:</label>
-        <input id="time_picker" name="departtime" type="text" class="form-control">
-     
-      </p>      
+      <label for="departtime">Departure Time:</label>
+      <input id="time_picker" name="departtime" type="text" class="form-control">
+
+      </p>  
+      </fieldset>
+      </div>
+      </div>  
       <p>
         <label for="passengers"># Of Passengers:</label>
         <input id="passengers" name="passengers" type="text" class="form-control">
@@ -64,7 +90,9 @@
         <button type="submit" value="submit" name="submit" id="submit" class="btn btn-primary">Submit</button>
       </p>
     </fieldset>
+    </div>
   </form>
+</div>
   <script>
   $().ready(function() {
        // validate signup form on keyup and submit
@@ -128,4 +156,3 @@
   });
   </script>
 </div> <!-- /container -->
-</html>
