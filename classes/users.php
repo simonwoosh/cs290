@@ -90,7 +90,7 @@ class users {
 	        //Sending the activation email
 	     	$headers = 'From: noreply@ourservice.com';
 	     	mail($email, ' Our Service - Please activate your account.', "Hello " . $first_name . " " . $last_name . ",\r\nThank you for registering with us. Please visit the link below so we can
-	        activate your account:\r\n\r\n http://em.local/CS290/activate.php?email=" . $email . "&confirm_code=" . $confirm_code . "\r\n\r\n-- Envirotraining", $headers);
+	        activate your account:\r\n\r\n http://em.local/CS290/activate.php?email=" . $email . "&confirm_code=" . $confirm_code . "\r\n\r\n-- Our Service", $headers);
 	    
 	    
 	    }
