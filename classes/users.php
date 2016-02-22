@@ -150,6 +150,7 @@ class users {
 	    catch(PDOException $e){
 		    die($e->getMessage());
 		}
+		return true;
 	}	
 
 	
@@ -183,7 +184,7 @@ class users {
 	    }
     }
 
-    public static function deleteUser($id) {
+    public static function delete($id) {
 
     $query = db::prepare("DELETE FROM user WHERE id=?");
 	$query->bindValue(1, $id);
