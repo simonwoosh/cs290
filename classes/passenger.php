@@ -14,6 +14,8 @@ class passenger {
 	private $emergency_contact_country;
 	private $emergency_contact_first_name;
 	private $emergency_contact_last_name;
+	private $date_added;
+	private $date_updated;
 
 
 	
@@ -43,6 +45,9 @@ class passenger {
 		$this->emergency_contact_country = $passengerInfo[0][9];
 		$this->emergency_contact_first_name = $passengerInfo[0][10];
 		$this->emergency_contact_last_name = $passengerInfo[0][11];
+		$this->date_added = $userInfo[0][12];
+		$this->date_updated = $userInfo[0][13];
+
 
 	}
 
@@ -81,6 +86,12 @@ class passenger {
 	}
 	public function getEmergency_contact_last_name() { 
 		return $this->emergency_contact_last_name;
+	}
+	public function getDate_added() { 
+		return $this->date_added;
+	}
+	public function getDate_updated() { 
+		return $this->date_updated;
 	}
 }
 

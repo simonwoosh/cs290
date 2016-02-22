@@ -12,4 +12,70 @@ class flight_detail_passenger_orders {
 		}
 		return $flight_detail_passengerArray;
 	}
+	public static function create($fdp_id, $o_id) {
+		//Preparing the database query
+        $query = db::prepare("SELECT id FROM airport WHERE fdp_id=? AND o_id=?");
+        //Binding $address data with prepared query
+        $query->bindValue(1, $fdp_id);
+        $query->bindValue(2, $o_id);
+        //Atempting query execution
+        try{
+            $query->execute();
+		    $id = $query->fetchColumn();
+		    if($id >= 1) {
+            return $id;   
+            }
+			else {
+				$query2 = db::prepare("INSERT INTO airport (fdp_id, o_id,date_added) VALUES(?,?,,NOW())");
+				$query2->bindValue(1, $fdp_id);
+				$query2->bindValue(2, $o_id);
+	            $query2->execute();
+			    $this->create($fdp_id, $o_id);
+			}  
+
+            
+        }
+        //Exception handing
+        catch (PDOException $e){
+            die($e->getMessage());
+        }
+        
+
+
+	}
+     public static function update($id, $fdp_id, $o_id){         
+	    //Preparing database query
+	    $query =db::prepare("UPDATE airport SET fdp_id=?, o_id=? WHERE id=?");
+	                               	          
+        //Binding values to query
+   	    
+    	$query->bindValue(1, $fdp_id);
+	    $query->bindValue(2, $o_id);
+	    $query->bindValue(3, $id);
+	    
+	    try{
+	        $query->execute();
+	        return True;	    
+	    
+	    }
+	    catch(PDOException $e){
+		    die($e->getMessage());
+		}
+		
+	}
+	public static function delete($id) {
+
+    $query = db::prepare("DELETE FROM aiport WHERE id=?");
+	$query->bindValue(1, $id);
+	
+	try{
+		    $query->execute();
+		    return True;
+		   
+		}
+ 
+	    catch(PDOException $e){
+		    die($e->getMessage());
+	    }
+    }
 }
