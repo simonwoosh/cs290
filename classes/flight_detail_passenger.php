@@ -34,10 +34,10 @@ class flight_detail_passenger {
 	public function getId() {
 		return $this->id;
 	}
-	public function getfd_id() {
+	public function getFd_id() {
 		return $this->fd_id;
 	}
-	public function getp_id() {
+	public function getP_id() {
 		return $this->p_id;
 	}
 	public function getDate_added() { 
