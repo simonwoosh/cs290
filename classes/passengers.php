@@ -14,7 +14,7 @@ class passengers {
 	}
 	public static function create($prefix, $first_name, $last_name, $middle_name, $suffix, $date_of_birth, $gender, $emergency_contact_phone, $emergency_contact_country, $emergency_contact_first_name, $emergency_contact_last_name) {
 		//Preparing the database query
-        $query = db::prepare("SELECT id FROM airport WHERE prefix=? AND first_name=? AND last_name=? AND middle_name=? AND suffix=? AND date_of_birth=? AND gender=? AND emergency_contact_phone=? AND emergency_contact_country=? AND emergency_contact_first_name=? AND emergency_contact_last_name=?");
+        $query = db::prepare("SELECT id FROM passenger WHERE prefix=? AND first_name=? AND last_name=? AND middle_name=? AND suffix=? AND date_of_birth=? AND gender=? AND emergency_contact_phone=? AND emergency_contact_country=? AND emergency_contact_first_name=? AND emergency_contact_last_name=?");
         //Binding $address data with prepared query
         $query->bindValue(1, $prefix);
         $query->bindValue(2, $first_name);
@@ -35,7 +35,7 @@ class passengers {
             return $id;   
             }
 			else {
-				$query2 = db::prepare("INSERT INTO airport (prefix, first_name,last_name, middle_name, suffix, date_of_birth, gender,date_added) VALUES(?,?,?,?,?,?,?,?,?,?,?,NOW())");
+				$query2 = db::prepare("INSERT INTO passenger (prefix, first_name,last_name, middle_name, suffix, date_of_birth, gender,date_added) VALUES(?,?,?,?,?,?,?,?,?,?,?,NOW())");
 				$query2->bindValue(1, $prefix);
 				$query2->bindValue(2, $first_name);
 				$query2->bindValue(3, $last_name);
@@ -63,7 +63,7 @@ class passengers {
 	}
      public static function update($id, $prefix, $first_name, $last_name, $middle_name, $suffix, $date_of_birth, $gender, $emergency_contact_phone, $emergency_contact_country, $emergency_contact_first_name, $emergency_contact_last_name){         
 	    //Preparing database query
-	    $query =db::prepare("UPDATE airport SET prefix=?, first_name=?, last_name=? middle_name=?, suffix=?, date_of_birth=?, gender=?, emergency_contact_phone=?, emergency_contact_country=?, emergency_contact_first_name=?, emergency_contact_last_name=? WHERE id=?");
+	    $query =db::prepare("UPDATE passenger SET prefix=?, first_name=?, last_name=? middle_name=?, suffix=?, date_of_birth=?, gender=?, emergency_contact_phone=?, emergency_contact_country=?, emergency_contact_first_name=?, emergency_contact_last_name=? WHERE id=?");
 	                               	          
         //Binding values to query
    	    
@@ -92,7 +92,7 @@ class passengers {
 	}
 	public static function delete($id) {
 
-    $query = db::prepare("DELETE FROM aiport WHERE id=?");
+    $query = db::prepare("DELETE FROM passenger WHERE id=?");
 	$query->bindValue(1, $id);
 	
 	try{

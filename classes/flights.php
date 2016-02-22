@@ -14,7 +14,7 @@ class flights {
 	}
 	public static function create($start_location, $end_location) {
 		//Preparing the database query
-        $query = db::prepare("SELECT id FROM airport WHERE start_location=? AND end_location=?");
+        $query = db::prepare("SELECT id FROM flight WHERE start_location=? AND end_location=?");
         //Binding $address data with prepared query
         $query->bindValue(1, $start_location);
         $query->bindValue(2, $end_location);
@@ -26,7 +26,7 @@ class flights {
             return $id;   
             }
 			else {
-				$query2 = db::prepare("INSERT INTO airport (start_location, end_location,date_added) VALUES(?,?,,NOW())");
+				$query2 = db::prepare("INSERT INTO flight (start_location, end_location,date_added) VALUES(?,?,,NOW())");
 				$query2->bindValue(1, $start_location);
 				$query2->bindValue(2, $end_location);
 	            $query2->execute();
@@ -45,7 +45,7 @@ class flights {
 	}
      public static function update($id, $start_location, $end_location){         
 	    //Preparing database query
-	    $query =db::prepare("UPDATE airport SET start_location=?, end_location=? WHERE id=?");
+	    $query =db::prepare("UPDATE flight SET start_location=?, end_location=? WHERE id=?");
 	                               	          
         //Binding values to query
    	    
@@ -65,7 +65,7 @@ class flights {
 	}
 	public static function delete($id) {
 
-    $query = db::prepare("DELETE FROM aiport WHERE id=?");
+    $query = db::prepare("DELETE FROM flight WHERE id=?");
 	$query->bindValue(1, $id);
 	
 	try{

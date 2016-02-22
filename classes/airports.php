@@ -69,7 +69,7 @@ class airports {
 	}
 	public static function delete($id) {
 
-    $query = db::prepare("DELETE FROM aiport WHERE id=?");
+    $query = db::prepare("DELETE FROM airport WHERE id=?");
 	$query->bindValue(1, $id);
 	
 	try{

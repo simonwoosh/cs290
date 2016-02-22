@@ -14,7 +14,7 @@ class orders {
 	}
 	public static function create($user_id, $booking_code, $total_cost, $payment_confirmed) {
 		//Preparing the database query
-        $query = db::prepare("SELECT id FROM airport WHERE user_id=? AND booking_code=? AND total_cost=? AND payment_confirmed=?");
+        $query = db::prepare("SELECT id FROM order WHERE user_id=? AND booking_code=? AND total_cost=? AND payment_confirmed=?");
         //Binding $address data with prepared query
         $query->bindValue(1, $user_id);
         $query->bindValue(2, $booking_code);
@@ -28,7 +28,7 @@ class orders {
             return $id;   
             }
 			else {
-				$query2 = db::prepare("INSERT INTO airport (user_id, booking_code,total_cost,date_added) VALUES(?,?,?,?,NOW())");
+				$query2 = db::prepare("INSERT INTO order (user_id, booking_code,total_cost,date_added) VALUES(?,?,?,?,NOW())");
 				$query2->bindValue(1, $user_id);
 				$query2->bindValue(2, $booking_code);
 				$query2->bindValue(3, $total_cost);
@@ -49,7 +49,7 @@ class orders {
 	}
      public static function update($user_id, $booking_code, $total_cost, $payment_confirmed){         
 	    //Preparing database query
-	    $query =db::prepare("UPDATE airport SET user_id=?, booking_code=?, total_cost=?, payment_confirmed=? WHERE id=?");
+	    $query =db::prepare("UPDATE order SET user_id=?, booking_code=?, total_cost=?, payment_confirmed=? WHERE id=?");
 	                               	          
         //Binding values to query
    	    
@@ -71,7 +71,7 @@ class orders {
 	}
 	public static function delete($id) {
 
-    $query = db::prepare("DELETE FROM aiport WHERE id=?");
+    $query = db::prepare("DELETE FROM order WHERE id=?");
 	$query->bindValue(1, $id);
 	
 	try{

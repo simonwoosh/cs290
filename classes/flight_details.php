@@ -14,7 +14,7 @@ class flight_details {
 	}
 	public static function create($flight_id, $capacity, $flight_status, $delayed_time, $estimated_duration, $departure_time, $unit_price) {
 		//Preparing the database query
-        $query = db::prepare("SELECT id FROM airport WHERE flight_id=? AND capacity=? AND flight_status=? AND delayed_time=? AND estimated_duration=? AND departure_time=? AND unit_price=?");
+        $query = db::prepare("SELECT id FROM flight_detail WHERE flight_id=? AND capacity=? AND flight_status=? AND delayed_time=? AND estimated_duration=? AND departure_time=? AND unit_price=?");
         //Binding $address data with prepared query
         $query->bindValue(1, $flight_id);
         $query->bindValue(2, $capacity);
@@ -31,7 +31,7 @@ class flight_details {
             return $id;   
             }
 			else {
-				$query2 = db::prepare("INSERT INTO airport (flight_id, capacity,flight_status, delayed_time, estimated_duration, departure_time, unit_price,date_added) VALUES(?,?,?,?,?,?,?,NOW())");
+				$query2 = db::prepare("INSERT INTO flight_detail (flight_id, capacity,flight_status, delayed_time, estimated_duration, departure_time, unit_price,date_added) VALUES(?,?,?,?,?,?,?,NOW())");
 				$query2->bindValue(1, $flight_id);
 				$query2->bindValue(2, $capacity);
 				$query2->bindValue(3, $flight_status);
@@ -55,7 +55,7 @@ class flight_details {
 	}
      public static function update($id, $flight_id, $capacity, $flight_status, $delayed_time, $estimated_duration, $departure_time, $unit_price){         
 	    //Preparing database query
-	    $query =db::prepare("UPDATE airport SET flight_id=?, capacity=?, flight_status=?, delayed_time=? AND estimated_duration=? AND departure_time=? AND unit_price=? WHERE id=?");
+	    $query =db::prepare("UPDATE flight_detail SET flight_id=?, capacity=?, flight_status=?, delayed_time=? AND estimated_duration=? AND departure_time=? AND unit_price=? WHERE id=?");
 	                               	          
         //Binding values to query
    	    
@@ -80,7 +80,7 @@ class flight_details {
 	}
 	public static function delete($id) {
 
-    $query = db::prepare("DELETE FROM aiport WHERE id=?");
+    $query = db::prepare("DELETE FROM flight_detail WHERE id=?");
 	$query->bindValue(1, $id);
 	
 	try{

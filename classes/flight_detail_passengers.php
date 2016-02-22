@@ -14,7 +14,7 @@ class flight_detail_passengers {
 	}
 	public static function create($fd_id, $p_id) {
 		//Preparing the database query
-        $query = db::prepare("SELECT id FROM airport WHERE fd_id=? AND p_id=?");
+        $query = db::prepare("SELECT id FROM flight_detail_passenger WHERE fd_id=? AND p_id=?");
         //Binding $address data with prepared query
         $query->bindValue(1, $fd_id);
         $query->bindValue(2, $p_id);
@@ -26,7 +26,7 @@ class flight_detail_passengers {
             return $id;   
             }
 			else {
-				$query2 = db::prepare("INSERT INTO airport (fd_id, p_id,date_added) VALUES(?,?,,NOW())");
+				$query2 = db::prepare("INSERT INTO flight_detail_passenger (fd_id, p_id,date_added) VALUES(?,?,,NOW())");
 				$query2->bindValue(1, $fd_id);
 				$query2->bindValue(2, $p_id);
 	            $query2->execute();
@@ -45,7 +45,7 @@ class flight_detail_passengers {
 	}
      public static function update($id, $fd_id, $p_id){         
 	    //Preparing database query
-	    $query =db::prepare("UPDATE airport SET fd_id=?, p_id=? WHERE id=?");
+	    $query =db::prepare("UPDATE flight_detail_passenger SET fd_id=?, p_id=? WHERE id=?");
 	                               	          
         //Binding values to query
    	    
@@ -65,7 +65,7 @@ class flight_detail_passengers {
 	}
 	public static function delete($id) {
 
-    $query = db::prepare("DELETE FROM aiport WHERE id=?");
+    $query = db::prepare("DELETE FROM flight_detail_passenger WHERE id=?");
 	$query->bindValue(1, $id);
 	
 	try{
