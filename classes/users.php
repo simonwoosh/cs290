@@ -37,8 +37,7 @@ class users {
             die($e->getMessage());
         }
     }
-    //Email exists
-  	public static function emailExists($email){
+    public function emailExists($email){
         //Preparing the database query
         $query = db::prepare("SELECT COUNT(id) FROM user WHERE email=?");
         //Binding $email with prepared query
@@ -61,29 +60,87 @@ class users {
         catch (PDOException $e){
             die($e->getMessage());
         }
-    }
-    //Register
-    public static function register($username, $password, $first_name,
-				            $last_name, $email){
+    } 
+   
+    
+   public static function register($first_name, $last_name, $username, $password, $email){
 				            
-
 	    //Onsite variables
-	    $id = 'NULL';
+	    $id = NULL;
 	    $password = sha1($password);
-	    $date_added = date('Y-m-d H:i:s');
-	    
+	    $confirmed = 0;
+	    $confirm_code = sha1($username . "salt");
+	    $date_added = date();
 	    //Preparing database query
-	    $query =db::prepare("INSERT INTO user (id, username, password, 
-	                                      first_name, last_name, email, date_added) VALUES (?,?,?,?,?,?,?) ");
+	    $query =db::prepare("INSERT INTO user (id, first_name, last_name, username, password, email,
+	    										 confirmed, confirm_code, date_added) VALUES (?,?,?,?,?,?,?,?,NOW()) ");
 	                               	          
         //Binding values to query
-	    $query->bindValue(1,  $id);
-	    $query->bindValue(2,  $username);
-	    $query->bindValue(3,  $password);
-	    $query->bindValue(4,  $first_name);
-	    $query->bindValue(5,  $last_name);
-	    $query->bindValue(6,  $email);
-	    $query->bindValue(7,  $date_added);
+   	    $query->bindValue(1, $id);
+	    $query->bindValue(2, $first_name);
+	    $query->bindValue(3, $last_name);
+	    $query->bindValue(4, $username);
+	    $query->bindValue(5, $password);
+	    $query->bindValue(6, $email);
+	    $query->bindValue(7, $confirmed);
+	    $query->bindValue(8, $confirm_code);
+	    
+	    try{
+	        $query->execute();
+	        //Sending the activation email
+	     	$headers = 'From: noreply@ourservice.com';
+	     	mail($email, ' Our Service - Please activate your account.', "Hello " . $first_name . " " . $last_name . ",\r\nThank you for registering with us. Please visit the link below so we can
+	        activate your account:\r\n\r\n http://em.local/CS290/activate.php?email=" . $email . "&confirm_code=" . $confirm_code . "\r\n\r\n-- Envirotraining", $headers);
+	    
+	    
+	    }
+	    catch(PDOException $e){
+		    die($e->getMessage());
+		}
+	}
+	public function activate_account($email, $confirm_code) {
+	
+	    //Prepare query
+	    $query = db::prepare("SELECT COUNT(id) FROM user WHERE email=? AND confirm_code=? AND confirmed=?");
+	    //Binding values
+	    $query->bindValue(1, $email);
+	    $query->bindValue(2, $confirm_code);
+	    $query->bindValue(3, 0);
+	    
+	    try{
+	    //Attempting execution
+	    $query->execute();
+	    $rows = $query->fetchColumn();
+	    
+	    if ($rows == 1) {
+	    $query2 = db::prepare("UPDATE user SET confirmed=? WHERE email=?");
+	    $query2->bindValue(1, 1);
+	    $query2->bindValue(2, $email);
+	    $query2->execute();
+	    return true;
+	    }
+	    else { return false; }
+	    
+	    }
+	    //Exeception handling
+	    catch(PDOException $e){
+	        die($e->getMessage());
+	    }
+	 }
+
+   public static function update($id, $first_name, $last_name, $username, $password, $email){         
+	    //Preparing database query
+	    $query =db::prepare("UPDATE user SET first_name=?, last_name=?, username=?, password=?, email=?
+	    					 WHERE id=?");
+	                               	          
+        //Binding values to query
+   	    
+    	$query->bindValue(1, $first_name);
+	    $query->bindValue(2, $last_name);
+	    $query->bindValue(3, $username);
+	    $query->bindValue(4, $password);
+	    $query->bindValue(5, $email);
+	    $query->bindValue(6, $id);
 	    
 	    try{
 	        $query->execute();
@@ -94,8 +151,8 @@ class users {
 		    die($e->getMessage());
 		}
 	}	
-   
-    
+
+	
 	
 	 
 	//Defining login static function 
@@ -146,6 +203,7 @@ class users {
 
     //Checking to see if session variable is hot
     public static function loggedIn() {
+    	
     	if(isset($_SESSION['id'])) {
     		return true;
     	}
@@ -158,7 +216,7 @@ class users {
 	
 	// Protecting area
 	public static function protectArea() {
-		if (self::loggedIn() == false) {
+		if (self::loggedIn() === false) {
 			header('Location: index.php');
 			exit();
 		}	

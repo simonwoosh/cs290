@@ -62,8 +62,7 @@ if(isset($_POST['submit'])) {
 		
 		
 		//Register function
-		users::register($username, $password, $first_name,
-				            $last_name, $email);
+		users::register($first_name, $last_name, $username, $password, $email);
 		
 		//Header change for sucessful sign up
 		header('Location: register.php?success');

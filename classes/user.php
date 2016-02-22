@@ -1,4 +1,5 @@
 <?php #user class
+
 class user {
 	
 	private $id;
@@ -6,6 +7,11 @@ class user {
 	private $last_name;
 	private $username;	
 	private $password;
+	private $email;
+	private $confirmed;
+	private $confirm_code;
+	private $date_added;
+	private $date_updated;
 
 	
 	/*
@@ -23,14 +29,15 @@ class user {
 		}
 		$userInfo = $query->fetchAll();
 		$this->id = $userInfo[0][0];
-		$this->username = $userInfo[0][1];
-		$this->password = $userInfo[0][2];
-		$this->first_name = $userInfo[0][3];
-		$this->last_name = $userInfo[0][4];
+		$this->first_name = $userInfo[0][1];
+		$this->last_name = $userInfo[0][2];
+		$this->username = $userInfo[0][3];
+		$this->password = $userInfo[0][4];
 		$this->email = $userInfo[0][5];
-		$this->date_added = $userInfo[0][6];
-
-
+		$this->confirmed = $userInfo[0][6];
+		$this->confirm_code = $userInfo[0][7];
+		$this->date_added = $userInfo[0][8];
+		$this->date_updated = $userInfo[0][9];
 
 	}
 
@@ -52,10 +59,18 @@ class user {
 	public function getEmail() {
 		return $this->email;
 	}
-	public function getDate_added() {
+	public function getConfirmed() { 
+		return $this->confirmed;
+	}
+	public function getConfirm_code() { 
+		return $this->confirmed_code;
+	}
+	public function getDate_added() { 
 		return $this->date_added;
 	}
-
+	public function getDate_updated() { 
+		return $this->date_updated;
+	}
 }
 
 ?>
