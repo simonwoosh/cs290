@@ -41,20 +41,20 @@ class user {
 
 	}
 
-	public function getID() {
+	public function getId() {
 		return $this->id;
-	}
-	public function getUsername() {
-		return $this->username;
-	}
-	public function getPassword() {
-		return $this->password;
 	}
 	public function getFirst_name() {
 		return $this->first_name;
 	}
 	public function getLast_name() {
 		return $this->last_name;
+	}
+	public function getUsername() {
+		return $this->username;
+	}
+	public function getPassword() {
+		return $this->password;
 	}
 	public function getEmail() {
 		return $this->email;
