@@ -1,0 +1,158 @@
+
+<div class="container " role="main">
+<h1><?php echo $title; ?></h1>
+<hr />
+
+  
+  <meta charset="utf-8">
+  
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  </script>
+<link href="jquery-ui.css" rel="stylesheet" />
+<link href="jquery.timepicker.css" rel="stylesheet" />
+<script src="jquery-1.9.1.js"></script>
+<script src="jquery-ui.js"></script>
+<script src="jquery.timepicker.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#time_picker').timepicker();
+    });
+</script>
+
+
+<div class="row">
+  
+  
+<form class="cmxform" id="flightform" method="post" action="">
+   <div class="col-md-6">
+      <div class="panel panel-default">
+      <div class="panel-heading">
+      <h3 class="panel-title">Where do you want to go?</h3>
+      </div>
+      <div class="panel-body">
+      <fieldset class="form-group">
+        
+        <p>
+          <label for="fromflight">From Airport:</label>
+          <input id="fromflight" name="from_flight" type="text" class="form-control">
+
+        </p>
+        <p>
+          <label for="toflight">To Airport:</label>
+          <input id="toflight" name="to_flight" type="text" class="form-control">
+
+        </p>
+        </fieldset>
+      </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+     <div class="panel panel-default">
+      <div class="panel-heading">
+      <h3 class="panel-title">When do you want to go?</h3>
+      </div>
+      <div class="panel-body">
+      <fieldset class="form-group">
+
+      <p>
+      <label for="departdate">Departure Date:</label>
+      <input id="datepicker" name="departdate" type="text" class="form-control">
+
+      </p>
+
+      <p>
+      <label for="departtime">Departure Time:</label>
+      <input id="time_picker" name="departtime" type="text" class="form-control">
+
+      </p>  
+      </fieldset>
+      </div>
+      </div>  
+      <p>
+        <label for="passengers"># Of Passengers:</label>
+        <input id="passengers" name="passengers" type="text" class="form-control">
+
+      </p>
+      <p>
+        <label for="directflight">Direct Flights Only:</label>
+        <input id="directflight" name="directflight" type="checkbox" class="form-control">
+      </p>
+
+      <p>
+        <button type="submit" value="submit" name="submit" id="submit" class="btn btn-primary">Submit</button>
+      </p>
+    </fieldset>
+    </div>
+  </form>
+</div>
+  <script>
+  $().ready(function() {
+       // validate signup form on keyup and submit
+    $("#flightform").validate({
+      rules: {
+        fromflight: "required",
+        toflight: "required",
+        username: {
+          required: true,
+          minlength: 2
+        },
+        password: {
+          required: true,
+          minlength: 5
+        },
+        confirm_password: {
+          required: true,
+          minlength: 5,
+          equalTo: "#password"
+        },
+        email: {
+          required: true,
+          email: true
+        },
+        topic: {
+          required: "#newsletter:checked",
+          minlength: 2
+        },
+        agree: "required"
+      },
+      messages: {
+        firstname: "Please enter your firstname",
+        lastname: "Please enter your lastname",
+        username: {
+          required: "Please enter a username",
+          minlength: "Your username must consist of at least 2 characters"
+        },
+        password: {
+          required: "Please provide a password",
+          minlength: "Your password must be at least 5 characters long"
+        },
+        confirm_password: {
+          required: "Please provide a password",
+          minlength: "Your password must be at least 5 characters long",
+          equalTo: "Please enter the same password as above"
+        },
+        email: "Please enter a valid email address",
+        agree: "Please accept our policy",
+        topic: "Please select at least 2 topics"
+      }
+    });
+
+    // propose username by combining first- and lastname
+    $("#username").focus(function() {
+      var firstname = $("#firstname").val();
+      var lastname = $("#lastname").val();
+      if (firstname && lastname && !this.value) {
+        this.value = firstname + "." + lastname;
+      }
+    });
+  });
+  </script>
+</div> <!-- /container -->
