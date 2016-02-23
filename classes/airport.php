@@ -3,7 +3,8 @@
 class airport {
 	
 	private $id;
-	private $name;
+	private $airport_name;
+	private $airport_location;
 	private $code;
 	private $timezone;
 	private $date_added;	
@@ -26,11 +27,12 @@ class airport {
 		}
 		$airportInfo = $query->fetchAll();
 		$this->id = $airportInfo[0][0];
-		$this->name = $airportInfo[0][1];
-		$this->code = $airportInfo[0][2];
-		$this->timezone = $airportInfo[0][3];
-		$this->date_added = $airportInfo[0][4];
-		$this->date_updated = $airportInfo[0][5];
+		$this->airport_name = $airportInfo[0][1];
+		$this->airport_location = $airportInfo[0][2];
+		$this->code = $airportInfo[0][3];
+		$this->timezone = $airportInfo[0][4];
+		$this->date_added = $airportInfo[0][5];
+		$this->date_updated = $airportInfo[0][6];
 
 
 	}
@@ -38,8 +40,11 @@ class airport {
 	public function getId() {
 		return $this->id;
 	}
-	public function getName() {
-		return $this->name;
+	public function getAirport_name() {
+		return $this->airport_name;
+	}
+	public function getAirport_location() {
+		return $this->airport_location;
 	}
 	public function getCode() {
 		return $this->code;
