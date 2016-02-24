@@ -21,7 +21,6 @@ class flight_detail_passengers {
 			return $count;
 
 		}
-		 }
         //Exception handing
         catch (PDOException $e){
             die($e->getMessage());

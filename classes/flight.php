@@ -3,8 +3,8 @@
 class flight {
 	
 	private $id;
-	private $start;
-	private $end;
+	private $start_location;
+	private $end_location;
 	private $date_added;	
 	private $date_updated;
 
@@ -25,8 +25,8 @@ class flight {
 		}
 		$flightInfo = $query->fetchAll();
 		$this->id = $flightInfo[0][0];
-		$this->start = $flightInfo[0][1];
-		$this->end = $flightInfo[0][2];
+		$this->start_location = $flightInfo[0][1];
+		$this->end_location = $flightInfo[0][2];
 		$this->date_added = $flightInfo[0][3];
 		$this->date_updated = $flightInfo[0][4];
 
@@ -35,11 +35,11 @@ class flight {
 	public function getId() {
 		return $this->id;
 	}
-		public function getStart() {
-		return $this->start;
+		public function getStart_location() {
+		return $this->start_location;
 	}
-	public function getEnd() {
-		return $this->end;
+	public function getEnd_location() {
+		return $this->end_location;
 	}
 	public function getDate_added() {
 		return $this->date_added;
