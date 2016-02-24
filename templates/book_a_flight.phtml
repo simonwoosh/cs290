@@ -3,29 +3,6 @@
 <h1><?php echo $title; ?></h1>
 <hr />
 
-  
-  <meta charset="utf-8">
-  
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script>
-  $(function() {
-    $( "#datepicker" ).datepicker();
-  });
-  </script>
-<link href="jquery-ui.css" rel="stylesheet" />
-<link href="jquery.timepicker.css" rel="stylesheet" />
-<script src="jquery-1.9.1.js"></script>
-<script src="jquery-ui.js"></script>
-<script src="jquery.timepicker.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#time_picker').timepicker();
-    });
-</script>
-
 
 <div class="row">
   
@@ -61,19 +38,16 @@
       </div>
       <div class="panel-body">
       <fieldset class="form-group">
+        <p id="datepairExample">
+            <input type="text" class="date start" />
+            <input type="text" class="time start" /> to
+            <input type="text" class="time end" />
+            <input type="text" class="date end" />
+        </p>
 
-      <p>
-      <label for="departdate">Departure Date:</label>
-      <input id="datepicker" name="departdate" type="text" class="form-control">
-
-      </p>
-
-      <p>
-      <label for="departtime">Departure Time:</label>
-      <input id="time_picker" name="departtime" type="text" class="form-control">
-
-      </p>  
+           
       </fieldset>
+
       </div>
       </div>  
       <p>
@@ -93,6 +67,21 @@
     </div>
   </form>
 </div>
+ <script>
+    $('#datepairExample .time').timepicker({
+    'showDuration': true,
+    'timeFormat': 'g:ia'
+    });
+
+    $('#datepairExample .date').datepicker({
+    'format': 'm/d/yyyy',
+    'autoclose': true
+    });
+
+    $('#datepairExample').datepair();
+    </script>
+
+            
   <script>
   $().ready(function() {
        // validate signup form on keyup and submit

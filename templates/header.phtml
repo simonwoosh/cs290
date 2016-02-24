@@ -16,10 +16,9 @@
     <!-- Bootstrap theme -->
     <link href="assets/css/bootstrap-theme.min.css" rel="stylesheet">
      <!-- Sticky Footer -->
-    <link href="assets/css/sticky-footer.css" rel="stylesheet">
+    <link hr3ef="assets/css/sticky-footer.css" rel="stylesheet">
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="assets/css/theme.css" rel="stylesheet">
     <!-- Validation & jquery -->
@@ -28,6 +27,16 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="assets/cssassets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="assets/js/ie-emulation-modes-warning.js"></script>
+    <!--Picker-->
+    <script src="http://jonthornton.github.io/Datepair.js/dist/datepair.js"></script>
+    <script src="http://jonthornton.github.io/Datepair.js/dist/jquery.datepair.js"></script> 
+    <script type="text/javascript" src="assets/js/jquery.timepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.timepicker.css" />
+
+    <script type="text/javascript" src="assets/js/lib/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap-datepicker.css" />
+
+    <script type="text/javascript" src="assets/lib/site.js"></script>
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -55,7 +64,7 @@
           <ul class="nav navbar-nav">
             <?php if(isset($_SESSION['id'])) { ?>
             <li <?php if ($title=="Home") { echo 'class="active"';} ?>><a href="main.php">Home</a></li>
-            <li <?php if ($title=="Check In") { echo 'class="active"';} ?>><a href="check_in.php">Check In</a></li>
+            <li <?php if ($title=="Book a flight") { echo 'class="active"';} ?>><a href="book_a_flight.php">Book a flight</a></li>
             <li <?php if ($title=="Check Flights") { echo 'class="active"';} ?>><a href="check_flights.php">Check Flights</a></li>
             <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>

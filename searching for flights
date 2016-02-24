@@ -1,0 +1,47 @@
+searching for flights
+
+first query 
+
+search airport table
+
+lookup airport id - from
+return id
+lookup airport id - to
+return id
+
+
+second query
+
+search flight table
+
+look flight where start_location = from airport id & end_location = to airport id
+return id
+
+
+third query
+
+search flight_detail table 
+
+look flight_detail where f_id = flight id &   user defined datetime <= depature datetime < user defined date but time 24:00:00
+
+return ids
+
+fourth query check if those flights returned aren't full
+
+flights = []
+
+foreach ids as id 
+	
+   flight_availablity():  {Q1 = select count(id) from flight detail passenger where flight_detail id 							= $id
+
+						  Q2 = select capacity from flight detail where id = $id
+
+						  available = capacity - occupency
+						  return available }
+	if flight_availability > 0 { array_push($flights, $id)}
+
+
+return flights
+
+
+

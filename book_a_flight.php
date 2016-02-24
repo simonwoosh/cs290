@@ -1,9 +1,9 @@
-<?php #flightlookup controller
+<?php #Book a flight controller
 include 'config.php';
 users::protectArea();
 $user = new user($_SESSION['id']);
-$title="Book Flight";
+$title="Book a flight";
 include 'templates/header.phtml';
-include 'templates/flightlookup.phtml';
+include 'templates/book_a_flight.phtml';
 include 'templates/footer.phtml';
 ?>			
