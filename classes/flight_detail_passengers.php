@@ -12,6 +12,22 @@ class flight_detail_passengers {
 		}
 		return $flight_detail_passengerArray;
 	}
+	public static function passengers_on_flight($fd_id){
+		$query = db::prepare("SELECT count(p_id) FROM flight_detail_passenger WHERE fd_id=?");
+		$query = bindValue(1, $fd_id);
+		try {
+			$query->execute();
+			$count = $query->fetchColumn;
+			return $count;
+
+		}
+		 }
+        //Exception handing
+        catch (PDOException $e){
+            die($e->getMessage());
+        }
+        
+	}
 	public static function create($fd_id, $p_id, $p_seat) {
 		//Preparing the database query
         $query = db::prepare("SELECT id FROM flight_detail_passenger WHERE fd_id=? AND p_id=? AND p_seat=?");

@@ -4,6 +4,7 @@ class flight_detail {
 	
 	private $id;
 	private $flight_id;
+	private $model_id;
 	private $capacity;
 	private $flight_status;	
 	private $delayed_time;
@@ -30,14 +31,15 @@ class flight_detail {
 		$flight_detailInfo = $query->fetchAll();
 		$this->id = $flight_detailInfo[0][0];
 		$this->flight_id = $flight_detailInfo[0][1];
-		$this->capacity = $flight_detailInfo[0][2];
-		$this->flight_status = $flight_detailInfo[0][3];
-		$this->delayed_time = $flight_detailInfo[0][4];
-		$this->estimated_duration = $flight_detailInfo[0][5];
-		$this->departure_time = $flight_detailInfo[0][6];
-		$this->unit_price = $flight_detailInfo[0][7];
-		$this->date_added = $flight_detailInfo[0][8];
-		$this->date_updated = $flight_detailInfo[0][9];
+		$this->model_id = $flight_detailInfo[0][2];
+		$this->capacity = $flight_detailInfo[0][3];
+		$this->flight_status = $flight_detailInfo[0][4];
+		$this->delayed_time = $flight_detailInfo[0][5];
+		$this->estimated_duration = $flight_detailInfo[0][6];
+		$this->departure_time = $flight_detailInfo[0][7];
+		$this->unit_price = $flight_detailInfo[0][8];
+		$this->date_added = $flight_detailInfo[0][9];
+		$this->date_updated = $flight_detailInfo[0][10];
 
 	}
 
@@ -46,6 +48,9 @@ class flight_detail {
 	}
 	public function getFlight_id() {
 		return $this->flight_id;
+	}
+	public function getModel_id() {
+		return $this->model_id;
 	}
 	public function getCapacity() {
 		return $this->capacity;
