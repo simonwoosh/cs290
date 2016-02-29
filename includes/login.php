@@ -1,7 +1,9 @@
 <?php #Login
 
+
+
 		if(isset($_POST['login'])) {
-			
+			echo ' fuck d';
 		    $username = trim($_POST['username']);
 		    $password = trim($_POST['password']);
 

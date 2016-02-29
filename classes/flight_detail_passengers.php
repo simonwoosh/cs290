@@ -12,12 +12,28 @@ class flight_detail_passengers {
 		}
 		return $flight_detail_passengerArray;
 	}
-	public static function create($fd_id, $p_id) {
+	public static function passengers_on_flight($fd_id){
+		$query = db::prepare("SELECT count(p_id) FROM flight_detail_passenger WHERE fd_id=?");
+		$query->bindValue(1, $fd_id);
+		try {
+			$query->execute();
+			$count = $query->fetchColumn();
+			return $count;
+
+		}
+        //Exception handing
+        catch (PDOException $e){
+            die($e->getMessage());
+        }
+        
+	}
+	public static function create($fd_id, $p_id, $p_seat) {
 		//Preparing the database query
-        $query = db::prepare("SELECT id FROM flight_detail_passenger WHERE fd_id=? AND p_id=?");
+        $query = db::prepare("SELECT id FROM flight_detail_passenger WHERE fd_id=? AND p_id=? AND p_seat=?");
         //Binding $address data with prepared query
         $query->bindValue(1, $fd_id);
         $query->bindValue(2, $p_id);
+        $query->bindValue(3, $p_seat);
         //Atempting query execution
         try{
             $query->execute();
@@ -26,11 +42,12 @@ class flight_detail_passengers {
             return $id;   
             }
 			else {
-				$query2 = db::prepare("INSERT INTO flight_detail_passenger (fd_id, p_id,date_added) VALUES(?,?,,NOW())");
+				$query2 = db::prepare("INSERT INTO flight_detail_passenger (fd_id, p_id, p_seat, date_added) VALUES(?,?,?,NOW())");
 				$query2->bindValue(1, $fd_id);
 				$query2->bindValue(2, $p_id);
+				$query2->bindValue(3, $p_seat);
 	            $query2->execute();
-			    $this->create($fd_id, $p_id);
+			    $this->create($fd_id, $p_id, $p_seat);
 			}  
 
             
@@ -43,15 +60,16 @@ class flight_detail_passengers {
 
 
 	}
-     public static function update($id, $fd_id, $p_id){         
+     public static function update($id, $fd_id, $p_id, $p_seat){         
 	    //Preparing database query
-	    $query =db::prepare("UPDATE flight_detail_passenger SET fd_id=?, p_id=? WHERE id=?");
+	    $query =db::prepare("UPDATE flight_detail_passenger SET fd_id=?, p_id=?, p_seat=? WHERE id=?");
 	                               	          
         //Binding values to query
    	    
     	$query->bindValue(1, $fd_id);
 	    $query->bindValue(2, $p_id);
-	    $query->bindValue(3, $id);
+	    $query->bindValue(3, $p_seat);
+	    $query->bindValue(4, $id);
 	    
 	    try{
 	        $query->execute();

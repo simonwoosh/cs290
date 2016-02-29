@@ -1,0 +1,164 @@
+
+<div class="container " role="main">
+<h1><?php echo $title; ?></h1>
+<hr />
+
+
+<div class="row">
+  <ol class="breadcrumb">
+  <li><a href="main.php">Home</a></li>
+  <li class="active">Book a Flight</li>
+</ol>
+  
+<form class="cmxform" id="flightform" method="post">
+   <div class="col-md-3">
+      <div class="panel panel-default">
+      <div class="panel-heading">
+      <h3 class="panel-title">Where do you want to go?</h3>
+      </div>
+      <div class="panel-body">
+      <fieldset class="form-group">
+        
+        <p>
+
+          <label for="fromflight">From Airport:</label>
+          <!--<input name="fromairport" list="fromairports" id="fromflight" placeholder="Airport name e.g. (Newark)" type="text" size="30" class="form-control"> -->
+          <select name="fromairport" id="fromairports">
+            <?php foreach($airports as $airport) { ?>
+            <option value="<?php echo $airport->getId(); ?>"><?php echo $airport->getAirport_name() . " (" . $airport->getAirport_code() . ")"; ?></option>
+            <?php } ?>
+          </select>
+        </p>
+        <p>
+          <label for="toflight">To Airport:</label>
+          <!-- <input name="toairport" list="toairports" id="toflight" placeholder="Airport name e.g. (Portland)" type="text" size="30" class="form-control"> -->
+          <select name="toairport" id="toairports">
+            <?php foreach($airports as $airport) { ?>
+            <option value="<?php echo $airport->getId(); ?>"><?php echo $airport->getAirport_name() . " (" . $airport->getAirport_code() . ")"; ?></option>
+            <?php } ?>
+          </select>
+          <hr />
+          <label for="directflight">Direct only:</label>
+        <input id="directflight" name="directflight" type="checkbox" >
+                <label for="oneway">One-Way:</label>
+        <input type="checkbox" id="oneway" name="oneway" >
+
+        </p>
+        </fieldset>
+      </div>
+      </div>
+
+       <div class="panel panel-default">
+      <div class="panel-heading">
+      <h3 class="panel-title">When do you want to go?</h3>
+      </div>
+      <div class="panel-body">
+      <fieldset class="form-group">
+                  
+            <label for="datestart">Depart Date:</label>
+            <input type="text" id="datestart" name="datestart" class="form-control"/>
+            <label for="datereturn">Return Date:</label>
+            <input type="text" id="datereturn" name="datereturn" class="form-control"/>
+ 
+           
+      </fieldset>
+
+      </div>
+      </div>  
+
+       <div class="panel panel-default">
+      <div class="panel-heading">
+      <h3 class="panel-title">Additional Information</h3>
+      </div>
+      <div class="panel-body">
+      <fieldset class="form-group">
+        
+        <p>
+
+        <label for="passengers">Passengers:</label>
+        <select id="passengers" name="passengers" type="dropdown" class="form-control">
+          <?php for($i=1; $i<10; $i++) { ?>
+            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+          <?php } ?>
+        </select>
+        <p>
+        <button style="float:right;" type="submit" value="submit" name="submit" id="submit" class="btn btn-primary">Update</button>
+      </p>
+
+      </p>
+
+    
+
+        </fieldset>
+      </div>
+      </div>
+
+
+    </div>
+
+    <div class="col-md-9">
+
+    <div id="search"> 
+
+
+
+    </div>
+    
+    </div>
+  </form>
+</div>
+<script type="text/javascript">
+$(function () {
+
+    //show it when the checkbox is clicked
+    $('input[name="oneway"]').on('click', function () {
+        if ($(this).prop('checked')) {
+            $('label[for="datereturn"]').hide();
+            $('input[name="datereturn"]').hide();
+        } else {
+            $('label[for="datereturn"]').fadeIn();
+            $('input[name="datereturn"]').fadeIn();
+        }
+    });
+});
+
+
+</script>
+ <script>
+
+    $('#datestart').datepicker({
+    'format': 'm/d/yyyy',
+    'startDate' : '0d',
+    'todayHighlight' : true,
+    'autoclose': true
+    });
+
+    $('#datereturn').datepicker({
+    'format': 'm/d/yyyy',
+     'startDate' : '0d',
+    'todayHighlight' : true,
+    'autoclose': true
+    });
+    </script>
+</div> 
+<script>
+$("#flightform").submit(function(e) {
+
+    var url = "livesearch.php"; // the script where you handle the form input.
+
+    $.ajax({
+           type: "GET",
+           url: url,
+           data: $("#flightform").serialize(), // serializes the form's elements.
+           success: function(data)
+           {
+               //var obj = jQuery.parseJSON(data);
+               //alert(obj);
+               $( "#search" ).html(data);
+           }
+         });
+
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+});
+</script>
+</div> <!-- /container -->

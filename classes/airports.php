@@ -13,13 +13,32 @@ class airports {
 		return $airportArray;
 	}
 
-	public static function create($name, $code, $timezone) {
+		public static function search($term) {
 		//Preparing the database query
-        $query = db::prepare("SELECT id FROM airport WHERE name=? AND code=? AND timezone=?");
+	    $query = db::prepare("SELECT id FROM airport WHERE CONCAT_WS('', `airport_name`, `airport_location`, `airport_code`) LIKE CONCAT('%', :term, '%')");
+	    //Binding $address data with prepared query
+	    $query->bindValue(':term', $term);
+	    //Atempting query execution
+	    try{
+	        $query->execute();
+	        $id = $query->fetchColumn();			
+			}//Exception handing
+	    catch (PDOException $e){
+	        die($e->getMessage());
+	    	}
+			return $id[0]; 
+
+	        
+	    }
+
+	public static function create($airport_name, $airport_location, $airport_code, $timezone) {
+		//Preparing the database query
+        $query = db::prepare("SELECT id FROM airport WHERE airport_name=? AND airport_location=? AND airport_code=? AND timezone=?");
         //Binding $address data with prepared query
-        $query->bindValue(1, $name);
-        $query->bindValue(2, $code);
-        $query->bindValue(3, $timezone);
+        $query->bindValue(1, $airport_name);
+        $query->bindValue(2, $airport_location);
+        $query->bindValue(3, $airport_code);
+        $query->bindValue(4, $timezone);
         //Atempting query execution
         try{
             $query->execute();
@@ -28,12 +47,13 @@ class airports {
             return $id;   
             }
 			else {
-				$query2 = db::prepare("INSERT INTO airport (name, code,timezone,date_added) VALUES(?,?,?,NOW())");
-				$query2->bindValue(1, $name);
-				$query2->bindValue(2, $code);
-				$query2->bindValue(3, $timezone);
+				$query2 = db::prepare("INSERT INTO airport (airport_name, airport_code, airport_location, timezone,date_added) VALUES(?,?,?,?,NOW())");
+				$query2->bindValue(1, $airport_name);
+				$query2->bindValue(2, $airport_location);
+				$query2->bindValue(3, $airport_code);
+				$query2->bindValue(4, $timezone);
 	            $query2->execute();
-			    $this->create($name, $code, $timezone);
+			    $this->create($airport_name, $airport_location, $airport_code, $timezone);
 			}  
 
             
@@ -46,16 +66,17 @@ class airports {
 
 
 	}
-     public static function update($id, $name, $code, $timezone){         
+     public static function update($id, $airport_name, $airport_location, $airport_code, $timezone){         
 	    //Preparing database query
-	    $query =db::prepare("UPDATE airport SET name=?, code=?, timezone=? WHERE id=?");
+	    $query =db::prepare("UPDATE airport SET airport_name=?, airport_location=?, airport_code=?, timezone=? WHERE id=?");
 	                               	          
         //Binding values to query
    	    
-    	$query->bindValue(1, $name);
-	    $query->bindValue(2, $code);
-	    $query->bindValue(3, $timezone);
-	    $query->bindValue(4, $id);
+    	$query->bindValue(1, $airport_name);
+    	$query->bindValue(2, $airport_location);
+	    $query->bindValue(3, $airport_code);
+	    $query->bindValue(4, $timezone);
+	    $query->bindValue(5, $id);
 	    
 	    try{
 	        $query->execute();

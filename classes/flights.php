@@ -12,6 +12,14 @@ class flights {
 		}
 		return $flightArray;
 	}
+	public static function getFlight_by_locations($from_location, $to_location){
+		$query = db::prepare("SELECT id FROM flight WHERE start_location=? AND end_location=?");
+		$query->bindValue(1, $from_location);
+		$query->bindValue(2, $to_location);
+		$query->execute();
+		$id = $query->fetchColumn();
+		return $id;
+	}
 	public static function create($start_location, $end_location) {
 		//Preparing the database query
         $query = db::prepare("SELECT id FROM flight WHERE start_location=? AND end_location=?");

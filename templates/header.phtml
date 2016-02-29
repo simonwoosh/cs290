@@ -14,20 +14,20 @@
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
-    <link href="assets/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-theme.css" rel="stylesheet">
      <!-- Sticky Footer -->
-    <link href="assets/css/sticky-footer.css" rel="stylesheet">
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
+    <link hr3ef="assets/css/sticky-footer.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="assets/css/theme.css" rel="stylesheet">
     <!-- Validation & jquery -->
     <script src="assets/js/jquery-2.2.0.js"></script>
     <script src="assets/js/jquery.validate.js"></script>
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="assets/cssassets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+    <!--Picker-->
+
+    <script type="text/javascript" src="assets/lib/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap-datepicker.css" />
+
+    <script type="text/javascript" src="assets/lib/site.js"></script>
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -49,33 +49,35 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Our Service</a>
+          <a class="navbar-brand" style="text-transform:uppercase;"><span class="glyphicon glyphicon-plane"></span> Project Air</a>
         </div>
+
         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav navbar-left">
             <?php if(isset($_SESSION['id'])) { ?>
-            <li <?php if ($title=="Home") { echo 'class="active"';} ?>><a href="main.php">Home</a></li>
-            <li <?php if ($title=="Check In") { echo 'class="active"';} ?>><a href="check_in.php">Check In</a></li>
-            <li <?php if ($title=="Check Flights") { echo 'class="active"';} ?>><a href="check_flights.php">Check Flights</a></li>
-            <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-              <li  <?php if ($title=="My Account") { echo 'class="active"';} ?>><a href="account.php"><?php echo $user->getFirst_name() . "'s Settings"; ?></a></li>
-              <li role="separator" class="divider"></li>
-              <li <?php if ($title=="Logout") { echo 'class="active"';} ?>><a href="logout.php">Logout</a></li>
-              
-              </ul>
-              </li>
-
-
-
-            <?php } else { ?>
-            <li <?php if ($title=="Home") { echo 'class="active"';} ?>><a href="index.php">Home</a></li>
-            <li <?php if ($title=="Register") { echo 'class="active"';} ?>><a href="register.php">Register</a></li>
-            <li <?php if ($title=="Login") { echo 'class="active"';} ?>><a href="login.php">Login</a></li>
+          <li <?php if ($title=="Home") { echo 'class="active"';} ?>><a href="main.php">Home</a></li>
+            <li <?php if ($title=="Book a flight") { echo 'class="active"';} ?>><a href="book_a_flight.php">Book Flight</a></li>
+            <li <?php if ($title=="Check Flights") { echo 'class="active"';} ?>><a href="check_flights.php">Check Flight</a></li>
             <?php } ?>
           </ul>
+    <ul class="nav navbar-nav navbar-right">
+       <?php if(isset($_SESSION['id'])) { ?>
+       <li><a>Welcome <?php echo $user->getFirst_name(); ?> </a> </li>
+       <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-globe"></span> Settings<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="settings.php"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+          </ul>
+        </li>
+        <?php } else { ?>
+      <li><a href="register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <?php } ?>
+    </ul>
         </div><!--/.nav-collapse -->
+
       </div>
     </nav>
 
