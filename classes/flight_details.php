@@ -13,21 +13,36 @@ class flight_details {
 		return $flight_detailArray;
 	}
 
-	public static function getFlight_detail_by_ut($f_id, $ut){
-		$end_time = date_time_set($ut, 23, 59, 59);
-		$query = db::prepare("SELECT id FROM flight_detail WHERE departure_time>=unix_timestamp($ut) AND departure_time <unix_timestamp($end_time)");
+	public static function getFlights_detail_by_ut($f_id, $user_time){
+		$start_time = strtotime($user_time);
+		$end_time = $user_time . " 23:59:59";
+		$end_time = strtotime($end_time);
+		$query = db::prepare("SELECT id FROM flight_detail WHERE flight_id=? AND departure_time BETWEEN FROM_UNIXTIME(?) AND FROM_UNIXTIME(?) ");
 		$query->bindValue(1, $f_id);
-		$query->bindValue(2, $ut);
-		$flight_detail_idsArray = array();
-		foreach($query as $flight_detailRow) {
-			if ($flight_detailRow['id']>0){
-				$flight_detail_idsArray[] = new flight_detail($flight_detailRow['id']);
-			}
-		}
-		return $flight_detail_idsArray;
+		$query->bindValue(2, $start_time);
+		$query->bindValue(3, $end_time);
+
+		 try{
+            $query->execute();
+		    $fd_ids = $query->fetchAll();
+		}catch (PDOException $e){
+            die($e->getMessage());
+        }
+        if($fd_ids) {
+
+        $flights = array(); 
+        foreach($fd_ids as $fd_id) {
+        	$availablity = self::flight_availablity($fd_id['id']);
+        	if ($availablity >= 1) {
+        		$flights[] = new flight_detail($fd_id['id']);
+        	}
+
+		  }
+		  return $flights;
+    	} else { return false; }
 	}
 	public static function selectCapacity($fd_id){
-		$query = db::prepare("SELECT capacity FROM flight_detail WHERE flight_id=?");
+		$query = db::prepare("SELECT capacity FROM flight_detail WHERE id=?");
 		$query->bindValue(1, $fd_id);
 		$query->execute();
 		$capacity = $query->fetchColumn();
@@ -35,7 +50,7 @@ class flight_details {
 	}
 	public static function flight_availablity($fd_id){
 		$occupency = flight_detail_passengers::passengers_on_flight($fd_id);
-		$capacity = selectCapacity($fd_id)
+		$capacity = self::selectCapacity($fd_id);
 		$available = $capacity - $occupency;
 		return $available;
 	}

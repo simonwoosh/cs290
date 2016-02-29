@@ -3,8 +3,10 @@ include 'config.php';
 $title="Home";
 include 'templates/header.phtml';
 if(users::loggedIn()) { 
-include 'templates/main.phtml';
-}else {
+header('Location: main.php');
+exit;
+}else {	
+	include 'includes/login.php';
 	include 'templates/home.phtml';
 }
 include 'templates/footer.phtml';

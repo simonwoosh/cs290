@@ -5,10 +5,13 @@
 
 
 <div class="row">
+  <ol class="breadcrumb">
+  <li><a href="main.php">Home</a></li>
+  <li class="active">Book a Flight</li>
+</ol>
   
-  
-<form class="cmxform" id="flightform" method="post" action="">
-   <div class="col-md-6">
+<form class="cmxform" id="flightform" method="post">
+   <div class="col-md-3">
       <div class="panel panel-default">
       <div class="panel-heading">
       <h3 class="panel-title">Where do you want to go?</h3>
@@ -17,131 +20,145 @@
       <fieldset class="form-group">
         
         <p>
-          <label for="fromflight">From Airport:</label>
-          <input id="fromflight" name="from_flight" type="text" class="form-control">
 
+          <label for="fromflight">From Airport:</label>
+          <!--<input name="fromairport" list="fromairports" id="fromflight" placeholder="Airport name e.g. (Newark)" type="text" size="30" class="form-control"> -->
+          <select name="fromairport" id="fromairports">
+            <?php foreach($airports as $airport) { ?>
+            <option value="<?php echo $airport->getId(); ?>"><?php echo $airport->getAirport_name() . " (" . $airport->getAirport_code() . ")"; ?></option>
+            <?php } ?>
+          </select>
         </p>
         <p>
           <label for="toflight">To Airport:</label>
-          <input id="toflight" name="to_flight" type="text" class="form-control">
+          <!-- <input name="toairport" list="toairports" id="toflight" placeholder="Airport name e.g. (Portland)" type="text" size="30" class="form-control"> -->
+          <select name="toairport" id="toairports">
+            <?php foreach($airports as $airport) { ?>
+            <option value="<?php echo $airport->getId(); ?>"><?php echo $airport->getAirport_name() . " (" . $airport->getAirport_code() . ")"; ?></option>
+            <?php } ?>
+          </select>
+          <hr />
+          <label for="directflight">Direct only:</label>
+        <input id="directflight" name="directflight" type="checkbox" >
+                <label for="oneway">One-Way:</label>
+        <input type="checkbox" id="oneway" name="oneway" >
 
         </p>
         </fieldset>
       </div>
       </div>
-    </div>
 
-    <div class="col-md-6">
-     <div class="panel panel-default">
+       <div class="panel panel-default">
       <div class="panel-heading">
       <h3 class="panel-title">When do you want to go?</h3>
       </div>
       <div class="panel-body">
       <fieldset class="form-group">
-        <p id="datepairExample">
-            <input type="text" class="date start" />
-            <input type="text" class="time start" /> to
-            <input type="text" class="time end" />
-            <input type="text" class="date end" />
-        </p>
-
+                  
+            <label for="datestart">Depart Date:</label>
+            <input type="text" id="datestart" name="datestart" class="form-control"/>
+            <label for="datereturn">Return Date:</label>
+            <input type="text" id="datereturn" name="datereturn" class="form-control"/>
+ 
            
       </fieldset>
 
       </div>
       </div>  
-      <p>
-        <label for="passengers"># Of Passengers:</label>
-        <input id="passengers" name="passengers" type="text" class="form-control">
+
+       <div class="panel panel-default">
+      <div class="panel-heading">
+      <h3 class="panel-title">Additional Information</h3>
+      </div>
+      <div class="panel-body">
+      <fieldset class="form-group">
+        
+        <p>
+
+        <label for="passengers">Passengers:</label>
+        <select id="passengers" name="passengers" type="dropdown" class="form-control">
+          <?php for($i=1; $i<10; $i++) { ?>
+            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+          <?php } ?>
+        </select>
+        <p>
+        <button style="float:right;" type="submit" value="submit" name="submit" id="submit" class="btn btn-primary">Update</button>
+      </p>
 
       </p>
-      <p>
-        <label for="directflight">Direct Flights Only:</label>
-        <input id="directflight" name="directflight" type="checkbox" class="form-control">
-      </p>
 
-      <p>
-        <button type="submit" value="submit" name="submit" id="submit" class="btn btn-primary">Submit</button>
-      </p>
-    </fieldset>
+    
+
+        </fieldset>
+      </div>
+      </div>
+
+
+    </div>
+
+    <div class="col-md-9">
+
+    <div id="search"> 
+
+
+
+    </div>
+    
     </div>
   </form>
 </div>
- <script>
-    $('#datepairExample .time').timepicker({
-    'showDuration': true,
-    'timeFormat': 'g:ia'
-    });
+<script type="text/javascript">
+$(function () {
 
-    $('#datepairExample .date').datepicker({
+    //show it when the checkbox is clicked
+    $('input[name="oneway"]').on('click', function () {
+        if ($(this).prop('checked')) {
+            $('label[for="datereturn"]').hide();
+            $('input[name="datereturn"]').hide();
+        } else {
+            $('label[for="datereturn"]').fadeIn();
+            $('input[name="datereturn"]').fadeIn();
+        }
+    });
+});
+
+
+</script>
+ <script>
+
+    $('#datestart').datepicker({
     'format': 'm/d/yyyy',
+    'startDate' : '0d',
+    'todayHighlight' : true,
     'autoclose': true
     });
 
-    $('#datepairExample').datepair();
+    $('#datereturn').datepicker({
+    'format': 'm/d/yyyy',
+     'startDate' : '0d',
+    'todayHighlight' : true,
+    'autoclose': true
+    });
     </script>
+</div> 
+<script>
+$("#flightform").submit(function(e) {
 
-            
-  <script>
-  $().ready(function() {
-       // validate signup form on keyup and submit
-    $("#flightform").validate({
-      rules: {
-        fromflight: "required",
-        toflight: "required",
-        username: {
-          required: true,
-          minlength: 2
-        },
-        password: {
-          required: true,
-          minlength: 5
-        },
-        confirm_password: {
-          required: true,
-          minlength: 5,
-          equalTo: "#password"
-        },
-        email: {
-          required: true,
-          email: true
-        },
-        topic: {
-          required: "#newsletter:checked",
-          minlength: 2
-        },
-        agree: "required"
-      },
-      messages: {
-        firstname: "Please enter your firstname",
-        lastname: "Please enter your lastname",
-        username: {
-          required: "Please enter a username",
-          minlength: "Your username must consist of at least 2 characters"
-        },
-        password: {
-          required: "Please provide a password",
-          minlength: "Your password must be at least 5 characters long"
-        },
-        confirm_password: {
-          required: "Please provide a password",
-          minlength: "Your password must be at least 5 characters long",
-          equalTo: "Please enter the same password as above"
-        },
-        email: "Please enter a valid email address",
-        agree: "Please accept our policy",
-        topic: "Please select at least 2 topics"
-      }
-    });
+    var url = "livesearch.php"; // the script where you handle the form input.
 
-    // propose username by combining first- and lastname
-    $("#username").focus(function() {
-      var firstname = $("#firstname").val();
-      var lastname = $("#lastname").val();
-      if (firstname && lastname && !this.value) {
-        this.value = firstname + "." + lastname;
-      }
-    });
-  });
-  </script>
+    $.ajax({
+           type: "GET",
+           url: url,
+           data: $("#flightform").serialize(), // serializes the form's elements.
+           success: function(data)
+           {
+               //var obj = jQuery.parseJSON(data);
+               //alert(obj);
+               $( "#search" ).html(data);
+           }
+         });
+
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+});
+</script>
 </div> <!-- /container -->

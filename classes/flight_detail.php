@@ -2,17 +2,17 @@
 
 class flight_detail {
 	
-	private $id;
-	private $flight_id;
-	private $model_id;
-	private $capacity;
-	private $flight_status;	
-	private $delayed_time;
-	private $estimated_duration;
-	private $departure_time;
-	private $unit_price;
-	private $date_added;
-	private $date_updated;
+	public $id;
+	public $flight_id;
+	public $model_id;
+	public $capacity;
+	public $flight_status;	
+	public $delayed_time;
+	public $estimated_duration;
+	public $departure_time;
+	public $unit_price;
+	public $date_added;
+	public $date_updated;
 
 	
 	/*

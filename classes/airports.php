@@ -13,6 +13,24 @@ class airports {
 		return $airportArray;
 	}
 
+		public static function search($term) {
+		//Preparing the database query
+	    $query = db::prepare("SELECT id FROM airport WHERE CONCAT_WS('', `airport_name`, `airport_location`, `airport_code`) LIKE CONCAT('%', :term, '%')");
+	    //Binding $address data with prepared query
+	    $query->bindValue(':term', $term);
+	    //Atempting query execution
+	    try{
+	        $query->execute();
+	        $id = $query->fetchColumn();			
+			}//Exception handing
+	    catch (PDOException $e){
+	        die($e->getMessage());
+	    	}
+			return $id[0]; 
+
+	        
+	    }
+
 	public static function create($airport_name, $airport_location, $airport_code, $timezone) {
 		//Preparing the database query
         $query = db::prepare("SELECT id FROM airport WHERE airport_name=? AND airport_location=? AND airport_code=? AND timezone=?");

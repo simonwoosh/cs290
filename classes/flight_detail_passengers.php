@@ -14,10 +14,10 @@ class flight_detail_passengers {
 	}
 	public static function passengers_on_flight($fd_id){
 		$query = db::prepare("SELECT count(p_id) FROM flight_detail_passenger WHERE fd_id=?");
-		$query = bindValue(1, $fd_id);
+		$query->bindValue(1, $fd_id);
 		try {
 			$query->execute();
-			$count = $query->fetchColumn;
+			$count = $query->fetchColumn();
 			return $count;
 
 		}
